@@ -46,7 +46,7 @@ start_deploy() {
     # Bashrc
     echo -e "${BOLD}${YELLOW}INFO:${NORMAL} Copying bashrc ..."
     cp -r configs/.bashrc $HOME_DIR
-    echo -e "${BOLD}${GREEN}OK:${NORMAL} Neovim has been copied!"
+    echo -e "${BOLD}${GREEN}OK:${NORMAL} Bashrc has been copied!"
 
     # Tmux 
     echo -e "${BOLD}${YELLOW}INFO:${NORMAL} Configuring tmux..."
