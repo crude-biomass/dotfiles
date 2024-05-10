@@ -3,7 +3,6 @@
 BASHRC=true
 TMUX=true
 NVIM=true
-EMACS=false
 
 HOME_DIR=$HOME
 CONFIG_DIR="$HOME_DIR/.config"
@@ -50,37 +49,47 @@ start_deploy() {
     
     # Bashrc
     if [ $BASHRC == true ]; then
-	echo -e "${BOLD}${YELLOW}INFO:${NORMAL} Copying bashrc ..."
-	cp -r configs/.bashrc $HOME_DIR
-	echo -e "${BOLD}${GREEN}OK:${NORMAL} Bashrc has been copied!"
+        echo -e "${BOLD}${YELLOW}INFO:${NORMAL} Copying bashrc ..."
+        cp -r configs/.bashrc $HOME_DIR
+        echo -e "${BOLD}${GREEN}OK:${NORMAL} Bashrc has been copied!"
     fi
 
     # Tmux 
     if [ $TMUX == true ]; then
-	echo -e "${BOLD}${YELLOW}INFO:${NORMAL} Configuring tmux..."
-	if ! command -v tmux &> /dev/null 
-	then
-	    echo -e "${BOLD}${RED}ERROR:${NORMAL} Tmux could not be found!!!"
-	    exit 1
-	fi
-	if ! command -v git &> /dev/null 
-	then
-	    echo -e "${BOLD}${RED}ERROR:${NORMAL} Git could not be found!!!"
-	    exit 1
-	fi
-	cp configs/.tmux.conf $HOME_DIR
-	git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-	tmux new -s config \; detach 
-	tmux run-shell "$HOME/.tmux/plugins/tpm/bindings/install_plugins"
-	tmux kill-session -t config
-	echo -e "${BOLD}${GREEN}OK:${NORMAL} Tmux has been successfully configured!"
+        echo -e "${BOLD}${YELLOW}INFO:${NORMAL} Configuring tmux..."
+        if ! command -v tmux &> /dev/null 
+        then
+            echo -e "${BOLD}${RED}ERROR:${NORMAL} Tmux could not be found!!!"
+            exit 1
+        fi
+        if ! command -v git &> /dev/null 
+        then
+            echo -e "${BOLD}${RED}ERROR:${NORMAL} Git could not be found!!!"
+            exit 1
+        fi
+        cp configs/.tmux.conf $HOME_DIR
+        git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+        tmux new -s config \; detach 
+        tmux run-shell "$HOME/.tmux/plugins/tpm/bindings/install_plugins"
+        tmux kill-session -t config
+        echo -e "${BOLD}${GREEN}OK:${NORMAL} Tmux has been successfully configured!"
     fi
 
     # Neovim
     if [ $NVIM == true ]; then
-	echo -e "${BOLD}${YELLOW}INFO:${NORMAL} Configuring neovim..."
-	cp -r configs/nvim $CONFIG_DIR
-	echo -e "${BOLD}${GREEN}OK:${NORMAL} Neovim has been successfully configured!"
+        if ! command -v tmux &> /dev/null 
+        then
+            echo -e "${BOLD}${RED}ERROR:${NORMAL} Tmux could not be found!!!"
+            exit 1
+        fi
+        if ! command -v git &> /dev/null 
+        then
+            echo -e "${BOLD}${RED}ERROR:${NORMAL} Git could not be found!!!"
+            exit 1
+        fi
+        echo -e "${BOLD}${YELLOW}INFO:${NORMAL} Configuring neovim..."
+        cp -r configs/nvim $CONFIG_DIR
+        echo -e "${BOLD}${GREEN}OK:${NORMAL} Neovim has been successfully configured!"
     fi
 }
 
